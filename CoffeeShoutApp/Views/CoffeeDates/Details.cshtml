@@ -1,0 +1,66 @@
+﻿@model CoffeeShoutApp.Models.CoffeeDate
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CoffeeDate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Venue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Venue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ShoutedAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShoutedAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPending)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPending)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CoffeeDateNo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

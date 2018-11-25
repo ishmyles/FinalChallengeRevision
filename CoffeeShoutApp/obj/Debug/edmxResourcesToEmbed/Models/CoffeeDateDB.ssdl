@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CoffeeShoutDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CoffeeDate">
+    <Key>
+      <PropertyRef Name="CoffeeDateNo" />
+    </Key>
+    <Property Name="CoffeeDateNo" Type="int" Nullable="false" />
+    <Property Name="Date" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Time" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Venue" Type="nvarchar" MaxLength="50" />
+    <Property Name="ShoutedBy" Type="nvarchar" MaxLength="10" />
+    <Property Name="ShoutedAmount" Type="money" />
+    <Property Name="IsPending" Type="int" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+    <Property Name="PendingApproval" Type="int" />
+  </EntityType>
+  <Association Name="FK_CofeeDate_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="CoffeeDate" Type="Self.CoffeeDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CoffeeDate">
+        <PropertyRef Name="ShoutedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CoffeeShoutDBModelStoreContainer">
+    <EntitySet Name="CoffeeDate" EntityType="Self.CoffeeDate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_CofeeDate_Member" Association="Self.FK_CofeeDate_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="CoffeeDate" EntitySet="CoffeeDate" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

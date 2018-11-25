@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CoffeeShoutDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="CoffeeDate">
+    <Key>
+      <PropertyRef Name="CoffeeDateNo" />
+    </Key>
+    <Property Name="CoffeeDateNo" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Time" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Venue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ShoutedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ShoutedAmount" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IsPending" Type="Int32" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_CofeeDate_Member" FromRole="CoffeeDate" ToRole="Member" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PendingApproval" Type="Int32" />
+    <NavigationProperty Name="CoffeeDates" Relationship="Self.FK_CofeeDate_Member" FromRole="Member" ToRole="CoffeeDate" />
+  </EntityType>
+  <Association Name="FK_CofeeDate_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="CoffeeDate" Type="Self.CoffeeDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CoffeeDate">
+        <PropertyRef Name="ShoutedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CoffeeShoutDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="CoffeeDates" EntityType="Self.CoffeeDate" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <AssociationSet Name="FK_CofeeDate_Member" Association="Self.FK_CofeeDate_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="CoffeeDate" EntitySet="CoffeeDates" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

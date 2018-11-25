@@ -1,0 +1,6 @@
+C:\Users\ishmyles\Desktop\PracticeChallenge\CoffeeShoutDB\bin\Debug\CoffeeShoutDB.dacpac
+C:\Users\ishmyles\Desktop\PracticeChallenge\CoffeeShoutDB\bin\Debug\CoffeeShoutDB.dll
+C:\Users\ishmyles\Desktop\PracticeChallenge\CoffeeShoutDB\bin\Debug\CoffeeShoutDB.pdb
+C:\Users\ishmyles\Desktop\PracticeChallenge\CoffeeShoutDB\obj\Debug\CoffeeShoutDB.sqlprojAssemblyReference.cache
+C:\Users\ishmyles\Desktop\PracticeChallenge\CoffeeShoutDB\obj\Debug\CoffeeShoutDB.dll
+C:\Users\ishmyles\Desktop\PracticeChallenge\CoffeeShoutDB\obj\Debug\CoffeeShoutDB.pdb

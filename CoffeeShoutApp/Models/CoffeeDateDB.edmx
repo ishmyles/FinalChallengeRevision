@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CoffeeShoutDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CoffeeDate">
+          <Key>
+            <PropertyRef Name="CoffeeDateNo" />
+          </Key>
+          <Property Name="CoffeeDateNo" Type="int" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Time" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Venue" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShoutedBy" Type="nvarchar" MaxLength="10" />
+          <Property Name="ShoutedAmount" Type="money" />
+          <Property Name="IsPending" Type="int" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="PendingApproval" Type="int" />
+        </EntityType>
+        <Association Name="FK_CofeeDate_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="CoffeeDate" Type="Self.CoffeeDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CoffeeDate">
+              <PropertyRef Name="ShoutedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeShoutDBModelStoreContainer">
+          <EntitySet Name="CoffeeDate" EntityType="Self.CoffeeDate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CofeeDate_Member" Association="Self.FK_CofeeDate_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="CoffeeDate" EntitySet="CoffeeDate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoffeeShoutDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CoffeeDate">
+          <Key>
+            <PropertyRef Name="CoffeeDateNo" />
+          </Key>
+          <Property Name="CoffeeDateNo" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Time" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Venue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShoutedBy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ShoutedAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsPending" Type="Int32" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_CofeeDate_Member" FromRole="CoffeeDate" ToRole="Member" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PendingApproval" Type="Int32" />
+          <NavigationProperty Name="CoffeeDates" Relationship="Self.FK_CofeeDate_Member" FromRole="Member" ToRole="CoffeeDate" />
+        </EntityType>
+        <Association Name="FK_CofeeDate_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="CoffeeDate" Type="Self.CoffeeDate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CoffeeDate">
+              <PropertyRef Name="ShoutedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoffeeShoutDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CoffeeDates" EntityType="Self.CoffeeDate" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <AssociationSet Name="FK_CofeeDate_Member" Association="Self.FK_CofeeDate_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="CoffeeDate" EntitySet="CoffeeDates" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoffeeShoutDBModelStoreContainer" CdmEntityContainer="CoffeeShoutDBEntities">
+          <EntitySetMapping Name="CoffeeDates">
+            <EntityTypeMapping TypeName="CoffeeShoutDBModel.CoffeeDate">
+              <MappingFragment StoreEntitySet="CoffeeDate">
+                <ScalarProperty Name="CoffeeDateNo" ColumnName="CoffeeDateNo" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Venue" ColumnName="Venue" />
+                <ScalarProperty Name="ShoutedBy" ColumnName="ShoutedBy" />
+                <ScalarProperty Name="ShoutedAmount" ColumnName="ShoutedAmount" />
+                <ScalarProperty Name="IsPending" ColumnName="IsPending" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="CoffeeShoutDBModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PendingApproval" ColumnName="PendingApproval" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

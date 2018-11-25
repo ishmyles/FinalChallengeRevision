@@ -1,0 +1,54 @@
+﻿@model CoffeeShoutApp.Models.CoffeeDatesViewModels
+
+@{
+    ViewBag.Title = "TotalShouts";
+}
+<h2>TotalShouts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            FirstName
+            @*@Html.DisplayNameFor(model => model.Member.FirstName)*@
+        </th>
+        <th>
+            LastName
+            @*@Html.DisplayNameFor(model => model.Member.LastName)*@
+        </th>
+        <th>
+            TotalShouts
+        </th>
+        <th></th>
+    </tr>
+    @for (int m = 0; m < Model.Members.Count; m++)
+    {
+        float totalAmount = 0;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Members[m].FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Members[m].LastName)
+            </td>
+            @for (int c = 0; c < Model.CoffeeDates.Count; c++)
+            {
+                if (Model.CoffeeDates[c].Member.ID == Model.Members[m].ID)
+                {
+                    totalAmount += float.Parse(Model.CoffeeDates[c].ShoutedAmount.ToString());
+                }
+            }
+            <td>
+                $@Html.DisplayFor(amount => totalAmount)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CoffeeDateNo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CoffeeDateNo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CoffeeDateNo })
+            </td>*@
+        </tr>
+    }
+
+</table>

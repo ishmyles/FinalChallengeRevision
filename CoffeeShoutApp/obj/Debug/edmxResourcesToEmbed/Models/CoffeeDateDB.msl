@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CoffeeShoutDBModelStoreContainer" CdmEntityContainer="CoffeeShoutDBEntities">
+    <EntitySetMapping Name="CoffeeDates">
+      <EntityTypeMapping TypeName="CoffeeShoutDBModel.CoffeeDate">
+        <MappingFragment StoreEntitySet="CoffeeDate">
+          <ScalarProperty Name="CoffeeDateNo" ColumnName="CoffeeDateNo" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Time" ColumnName="Time" />
+          <ScalarProperty Name="Venue" ColumnName="Venue" />
+          <ScalarProperty Name="ShoutedBy" ColumnName="ShoutedBy" />
+          <ScalarProperty Name="ShoutedAmount" ColumnName="ShoutedAmount" />
+          <ScalarProperty Name="IsPending" ColumnName="IsPending" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="CoffeeShoutDBModel.Member">
+        <MappingFragment StoreEntitySet="Member">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="PendingApproval" ColumnName="PendingApproval" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
